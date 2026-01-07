@@ -81,16 +81,11 @@
 <script src="/theme.js?v=1"></script>
 <script src="/include.js?v=1"></script>
 <script src="/header-main.js?v=1"></script>
-
 <script src="./log.js?v=1001"></script>
 
-  <script>
+<script>
   const form = document.getElementById("messageForm");
   const modal = document.getElementById("thanksModal");
-
-  const url = form.getAttribute("action") || window.location.pathname;
-　const res = await fetch(url, { ... });
-
 
   function openModal() {
     modal.hidden = false;
@@ -112,54 +107,30 @@
     if (e.key === "Escape" && modal && !modal.hidden) closeModal();
   });
 
-  // form?.addEventListener("submit", async (e) => {
-  //   e.preventDefault();
-
-  //   const fd = new FormData(form);
-
-  //   try {
-  //     const res = await fetch("/", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //       body: new URLSearchParams(fd).toString(),
-  //     });
-
-  //     if (!res.ok) throw new Error("submit failed");
-
-  //     // 送信成功：入力欄クリア→モーダル
-  //     form.reset();
-  //     openModal();
-
-  //   } catch (err) {
-  //     alert("送信に失敗しました。時間をおいて試してください。");
-  //     console.error(err);
-  //   }
-  // });
-
   form?.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const fd = new FormData(form);
+    const fd = new FormData(form);
+    const url = form.getAttribute("action") || window.location.pathname;
 
-  try {
-    const res = await fetch(window.location.pathname, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(fd).toString(),
-    });
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(fd).toString(),
+      });
 
-    if (!res.ok) throw new Error("submit failed");
+      if (!res.ok) throw new Error("submit failed");
 
-    form.reset();
-    openModal();
-
-  } catch (err) {
-    alert("送信に失敗しました。時間をおいて試してください。");
-    console.error(err);
-  }
-});
-
+      form.reset();
+      openModal();
+    } catch (err) {
+      alert("送信に失敗しました。時間をおいて試してください。");
+      console.error(err);
+    }
+  });
 </script>
+
 
 </body>
 </html>
