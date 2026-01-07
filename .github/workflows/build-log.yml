@@ -1,0 +1,32 @@
+name: build log.json
+
+on:
+  push:
+    paths:
+      - "_posts/**"
+      - "scripts/**"
+      - ".github/workflows/build-log.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node scripts/build-log.mjs
+
+      - name: Commit log.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add log.json
+          git commit -m "Update log.json" || echo "No changes"
+          git push

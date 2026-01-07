@@ -1,0 +1,146 @@
+
+/* landing(index)ではヘッダーを極限まで透明化 */
+body.landing header {
+  border-bottom: none;
+  background: transparent;
+}
+
+/* サイトタイトル非表示 */
+body.landing header .site-title {
+  display: none;
+}
+
+/* navbarの高さを詰める（余白対策） */
+body.landing header .navbar {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+    /* landing page */
+body.landing {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-wrap {
+  text-align: center;
+}
+
+body.landing header .menu {
+  display: flex;
+}
+
+
+.landing-title {
+  font-size: 32px;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.enter-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.enter-btn:hover {
+  opacity: 0.9;
+}
+
+.about-link {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.about-link:hover {
+  text-decoration: underline;
+}
+
+/* index(landing) では navのリンク類を隠して、テーマトグルだけ残す */
+body.landing header .menu > li:not(.menu-item-toggle) {
+  display: none;
+}
+
+/* トグルだけ右寄せにして見た目整える（必要なら） */
+body.landing header .menu {
+  justify-content: flex-end;
+  width: 100%;
+}
+
+/* トグルが入る前から高さを確保してズレ防止 */
+.theme-slot {
+  margin: 20px 0 30px;
+  display: flex;
+  justify-content: center;
+  min-height: 44px; /* トグルボタンの高さ分。合わなければ微調整 */
+}
+
+
+/* landingで theme-slot に移した li の黒丸を消す */
+body.landing .theme-slot li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 念のため ul も */
+body.landing .theme-slot ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* landingではヘッダーをレイアウトから外して揺れ防止 */
+body.landing header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;         
+  border-bottom: none;
+  background: transparent;
+  pointer-events: none; 
+}
+
+/* ただしトグルだけは押せるようにする */
+body.landing .theme-slot,
+body.landing .theme-slot * {
+  pointer-events: auto;
+}
+
+body.landing {
+  min-height: 100svh;
+}
+
+.landing-wrap {
+  animation: fadeIn .5s ease-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.enter-btn,
+.about-link {
+  user-select: none;
+}
+
+.landing-title {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .landing-title {
+    font-size: 26px;
+    letter-spacing: 0.06em;
+  }
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chapter | drmnuit</title>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/ep-nav.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body data-ep="">
+  <div id="siteHeader" data-include="/ep-nav.html"></div>
+
+  <main>
+    <h3 id="epHeading"></h3>
+
+    <section class="card" data-story>
+      <div id="storyBody"></div>
+    </section>
+  </main>
+
+  <script src="/theme.js?v=1"></script>
+  <script src="/include.js?v=1"></script>
+  <script src="/ep-nav.js?v=1"></script>
+
+  <!-- MarkdownをHTML化（必要なら） -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- ここで ep / prev / next / 本文 を埋める -->
+  <script>
+    (async () => {
+      const ep = new URLSearchParams(location.search).get("ep"); // "01" みたいな
+      if (!ep) { location.href = "../index.html"; return; }
+
+      // 目録を読む（順番・タイトル・subtitle・epId を一元管理）
+      const meta = await fetch("./episodes.json").then(r => r.json());
+      const i = meta.findIndex(x => x.file === ep);
+      if (i < 0) { location.href = "../index.html"; return; }
+
+      const cur = meta[i];
+      const prev = meta[i - 1]?.file || "";
+      const next = meta[i + 1]?.file || "";
+
+      // body dataset
+      document.body.dataset.prev = prev ? `?ep=${prev}` : "";
+      document.body.dataset.next = next ? `?ep=${next}` : "";
+      document.body.dataset.ep   = cur.epId; // 既読管理用
+
+      // 既読保存
+      const key = "readEpisodes";
+      const read = JSON.parse(localStorage.getItem(key) || "[]");
+      if (!read.includes(cur.epId)) {
+        read.push(cur.epId);
+        localStorage.setItem(key, JSON.stringify(read));
+      }
+
+      const prevBtn = document.querySelector('[data-action="prev"]');
+      const nextBtn = document.querySelector('[data-action="next"]');
+
+      if (!prev && prevBtn) {
+        prevBtn.style.display = "none";
+      }
+
+      if (!next && nextBtn) {
+        nextBtn.style.display = "none";
+      }
+
+      // 見出し
+      document.getElementById("epHeading").innerHTML =
+        `${cur.file} <span class="sub-title">${cur.subtitle || ""}</span>`;
+
+      // 本文（Markdown）
+      const md = await fetch(`./md/${ep}.md`).then(r => r.text());
+
+      // ${name} 置換は「HTMLにする前」でも「後」でもOKだけど、
+      // ここではHTML化した後に、innerHTML文字列に対して置換する
+      const name = localStorage.getItem("yume_name") || "トオル";
+      const escapeHtml = (s) => s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
+
+      let html = marked.parse(md);
+      html = html.replaceAll("${name}", escapeHtml(name));
+
+      document.getElementById("storyBody").innerHTML = html;
+      })();
+
+  </script>
+
+</body>
+</html>

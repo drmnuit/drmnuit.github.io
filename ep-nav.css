@@ -1,0 +1,72 @@
+/* 下固定ナビ（novel1専用） */
+.ep-nav{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+
+  /* iPhoneの下の安全領域 */
+  padding-bottom: env(safe-area-inset-bottom);
+
+  transition: transform 0.25s ease;
+}
+
+.ep-nav.is-hidden{
+  transform: translateY(110%);
+}
+
+.ep-nav__inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ep-btn{
+  flex: 1;
+  text-align: center;
+
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 8px;
+  text-decoration: none;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.ep-btn:active { transform: translateY(1px); }
+
+
+.ep-btn:hover{
+  background: var(--hover);
+}
+
+.ep-btn.is-disabled{
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+  main {
+  position: relative;
+}
+
+  #themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+main{
+  margin: -30px auto 100px;
+  max-width: 720px;
+}

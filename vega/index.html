@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chapters | drmnuit</title>
+   <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div id="siteHeader" data-include="/header-main.html"></div>
+
+  <main>
+    <h1>chapters</h1>
+      <section class="card">
+        <h2>ベガが渡った日</h2>
+        <h3>prologue</h3>
+        <a class="btn episode-link" href="ep/?ep=01" data-ep="vega-01">01</a>
+        <a class="btn episode-link" href="ep/?ep=02" data-ep="vega-02">02</a>
+        <a class="btn episode-link" href="ep/?ep=03" data-ep="vega-03">03</a>
+      </section>
+  </main>
+
+<script src="/theme.js?v=1"></script>
+<script src="/include.js?v=1"></script>
+<script src="/header-main.js?v=1"></script>
+<script src="./vega.js?v=4"></script>
+
+<script>
+  const read = JSON.parse(localStorage.getItem("readEpisodes") || "[]");
+
+document.querySelectorAll(".episode-link").forEach(link => {
+  const ep = link.dataset.ep;
+  if (read.includes(ep)) {
+    link.classList.add("is-read");
+  }
+});
+</script>
+
+</body>
+</html>

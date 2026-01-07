@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>home | drmnuit</title>
+   <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+  <div id="siteHeader" data-include="/header-main.html"></div>
+
+  <main>
+     <h1>home</h1>
+        <section class="card">                  
+       <div class="name-row">
+  <h2 class="name-title">name</h2>
+  <p id="saveNotice" class="save-notice" aria-live="polite">&nbsp;</p>
+</div>
+
+        <label for="nameInput" class="visually-hidden">主人公の名前</label>
+        <input id="nameInput" type="text" placeholder="ナマエ" autocomplete="nickname" />
+
+        <div class="actions">
+            <button id="saveBtn" type="button" disabled>save</button>
+            <button id="deleteBtn" type="button" disabled>delete</button>
+        </div>
+        </section>
+
+        <section class="card">
+         <h2>novels</h2>
+
+            <div class="episode-item">
+              <h3 class="episode-title">
+                <a href="/vega/">
+                  <i class="bi bi-stars"></i> ベガが渡った日 <i class="bi bi-stars"></i>
+                </a>
+              </h3>
+              <p class="episode-meta">キルア / 許嫁 / タイムスリップ</p>
+            </div>
+        </section>
+  </main>
+ 
+<script src="/theme.js?v=1"></script>
+<script src="/include.js?v=1"></script>
+<script src="/header-main.js?v=1"></script>
+
+  <script>
+  const DEFAULT_NAME = "トオル";
+
+  const nameInput = document.getElementById("nameInput");
+  const saveBtn = document.getElementById("saveBtn");
+  const deleteBtn = document.getElementById("deleteBtn");
+
+  // すでに保存されてる名前があれば、入力欄に復元
+  const savedName = localStorage.getItem("yume_name");
+  nameInput.value = savedName ? savedName : "";
+
+  function updateButtons() {
+    const hasText = nameInput.value.trim().length > 0;
+    saveBtn.disabled = !hasText;
+    deleteBtn.disabled = !hasText;
+  }
+
+  updateButtons();
+  nameInput.addEventListener("input", updateButtons);
+
+  // 保存：入力した名前を保存＆入力欄にそのまま残す
+  saveBtn.addEventListener("click", () => {
+  const v = nameInput.value.trim();
+  if (!v) return;
+
+  localStorage.setItem("yume_name", v);
+
+  const notice = document.getElementById("saveNotice");
+  notice.textContent = `保存しました。`;
+  notice.classList.add("show");
+
+    setTimeout(() => {
+    notice.classList.remove("show");
+    notice.innerHTML = "&nbsp;";
+  }, 2000);
+});
+
+  // 削除：保存名を削除
+  deleteBtn.addEventListener("click", () => {
+    localStorage.removeItem("yume_name");
+    nameInput.value = "";
+    updateButtons();
+  });
+
+document.querySelectorAll(".episode-link").forEach(link => {
+  link.addEventListener("click", () => {
+    const v = nameInput?.value.trim();
+    if (v) {
+      localStorage.setItem("yume_name", v);
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
