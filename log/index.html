@@ -37,16 +37,21 @@
 
 <section class="card">
   <h2>message</h2>
-  
-    <!-- <form id="messageForm" name="message" method="POST"
-      data-netlify="true" netlify-honeypot="bot-field"> -->
 
-  <form id="messageForm"
+  <!-- <form id="messageForm"
       name="message"
       method="POST"
       action="/log/"
       data-netlify="true"
-      netlify-honeypot="bot-field">
+      netlify-honeypot="bot-field"> -->
+
+  <form id="messageForm"
+  name="message"
+  method="POST"
+  action="/"
+  data-netlify="true"
+  netlify-honeypot="bot-field">
+
 
 
   <input type="hidden" name="form-name" value="message">
@@ -83,7 +88,7 @@
 <script src="/header-main.js?v=1"></script>
 <script src="./log.js?v=1001"></script>
 
-<script>
+<!-- <script>
   const form = document.getElementById("messageForm");
   const modal = document.getElementById("thanksModal");
 
@@ -114,6 +119,7 @@
     const url = form.getAttribute("action") || window.location.pathname;
 
     try {
+      console.log("payload:", new URLSearchParams(new FormData(form)).toString());
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -129,7 +135,73 @@
       console.error(err);
     }
   });
+
+</script> -->
+
+  <script>
+(() => {
+  const form = document.getElementById("messageForm");
+  const modal = document.getElementById("thanksModal");
+  if (!form || !modal) return;
+
+  let lastFocus = null;
+
+  function openModal() {
+    lastFocus = document.activeElement;
+
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+
+    // closeにフォーカス（警告回避）
+    modal.querySelector("[data-close]")?.focus();
+  }
+
+  function closeModal() {
+    // 先にフォーカスを戻す（aria-hidden警告対策）
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+
+    modal.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  // backdrop / close ボタン
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) closeModal();
+  });
+
+  // Esc で閉じる
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeModal();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    try {
+      // Netlify Forms に必要な形（URLエンコード）
+      const body = new URLSearchParams(new FormData(form)).toString();
+
+      // デバッグしたい時だけ有効にしてOK
+      // console.log("payload:", body);
+
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+      });
+
+      if (!res.ok) throw new Error("submit failed");
+
+      form.reset();
+      openModal();
+    } catch (err) {
+      console.error(err);
+      alert("送信に失敗しました。時間をおいて試してください。");
+    }
+  });
+})();
 </script>
+
 
 
 </body>
