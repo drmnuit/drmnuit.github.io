@@ -16,16 +16,15 @@
     <section class="card">
         <p>
         このページでは、更新のお知らせや近況などをまとめていきます。
-        <br>気が向いたときに、少しずつ書いていきます。<br>
+        <br>気が向いたときに、少しずつ書いていきます。
+        <!-- <br>
         ご感想などありましたら、
         <a href="https://forms.gle/LJxLwSZttBrNK5fa7" target="_blank" rel="noopener">
         こちらから <i class="bi bi-box-arrow-up-right"></i>
-        </a> お送りください。
+        </a> お送りください。 -->
         </p>
-    </section>
 
-    <section class="card">
-    <div id="logList" class="log-list"></div>
+       <div id="logList" class="log-list"></div>
     </section>
 
   <dialog id="logDialog" class="log-dialog">
@@ -34,6 +33,32 @@
     <p id="dlgDate" class="small"></p>
     <div id="dlgBody" class="log-body"></div>
   </dialog>
+
+  <section class="card">
+  <h2>message</h2>
+
+  <form name="message"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field">
+
+    <!-- スパム対策（表示されない） -->
+    <input type="hidden" name="form-name" value="message">
+    <p hidden>
+      <label>Don’t fill this out: <input name="bot-field"></label>
+    </p>
+
+    <textarea name="text"
+      rows="4"
+      placeholder="ひとこと"
+      required></textarea>
+
+    <div class="actions">
+      <button type="submit">send</button>
+    </div>
+  </form>
+</section>
+
 
 </main>
 
@@ -50,7 +75,7 @@
   .log-list {
   display: grid;
   gap: 10px;
-  margin-top: 12px;
+  margin-top: 20px;
 }
 
 .log-item {
