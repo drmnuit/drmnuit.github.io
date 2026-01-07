@@ -83,10 +83,13 @@
 <script src="/header-main.js?v=1"></script>
 
 <script src="./log.js?v=1001"></script>
-<script>
+
   <script>
   const form = document.getElementById("messageForm");
   const modal = document.getElementById("thanksModal");
+    
+  // messageページではこれを書かない
+　nameInput.value = savedName;
 
   function openModal() {
     modal.hidden = false;
@@ -131,8 +134,6 @@
       console.error(err);
     }
   });
-</script>
-
 </script>
 
 </body>
