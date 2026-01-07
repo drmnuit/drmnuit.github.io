@@ -38,8 +38,16 @@
 <section class="card">
   <h2>message</h2>
   
-    <form id="messageForm" name="message" method="POST"
-      data-netlify="true" netlify-honeypot="bot-field">
+    <!-- <form id="messageForm" name="message" method="POST"
+      data-netlify="true" netlify-honeypot="bot-field"> -->
+
+  <form id="messageForm"
+      name="message"
+      method="POST"
+      action="/log/"
+      data-netlify="true"
+      netlify-honeypot="bot-field">
+
 
   <input type="hidden" name="form-name" value="message">
 
@@ -80,6 +88,10 @@
   const form = document.getElementById("messageForm");
   const modal = document.getElementById("thanksModal");
 
+  const url = form.getAttribute("action") || window.location.pathname;
+　const res = await fetch(url, { ... });
+
+
   function openModal() {
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
@@ -100,29 +112,53 @@
     if (e.key === "Escape" && modal && !modal.hidden) closeModal();
   });
 
+  // form?.addEventListener("submit", async (e) => {
+  //   e.preventDefault();
+
+  //   const fd = new FormData(form);
+
+  //   try {
+  //     const res = await fetch("/", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //       body: new URLSearchParams(fd).toString(),
+  //     });
+
+  //     if (!res.ok) throw new Error("submit failed");
+
+  //     // 送信成功：入力欄クリア→モーダル
+  //     form.reset();
+  //     openModal();
+
+  //   } catch (err) {
+  //     alert("送信に失敗しました。時間をおいて試してください。");
+  //     console.error(err);
+  //   }
+  // });
+
   form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const fd = new FormData(form);
+  const fd = new FormData(form);
 
-    try {
-      const res = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(fd).toString(),
-      });
+  try {
+    const res = await fetch(window.location.pathname, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(fd).toString(),
+    });
 
-      if (!res.ok) throw new Error("submit failed");
+    if (!res.ok) throw new Error("submit failed");
 
-      // 送信成功：入力欄クリア→モーダル
-      form.reset();
-      openModal();
+    form.reset();
+    openModal();
 
-    } catch (err) {
-      alert("送信に失敗しました。時間をおいて試してください。");
-      console.error(err);
-    }
-  });
+  } catch (err) {
+    alert("送信に失敗しました。時間をおいて試してください。");
+    console.error(err);
+  }
+});
+
 </script>
 
 </body>
