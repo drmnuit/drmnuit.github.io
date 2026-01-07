@@ -18,7 +18,8 @@
 
 /* Dark（デフォルトにしたいなら、htmlに data-theme="dark" を付ける） */
 :root[data-theme="dark"]{
-  --bg: #0b1220;
+  /* --bg: #0b1220; */
+  --bg: #0e101d;
   --text: #e5e7eb;
   --muted: #cbd5e1;
   --border: rgba(195, 191, 236, 0.2);
