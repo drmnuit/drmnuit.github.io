@@ -35,30 +35,40 @@
     <div id="dlgBody" class="log-body"></div>
   </dialog>
 
-  <section class="card">
+<section class="card">
   <h2>message</h2>
 
-  <form name="message"
+  <form id="messageForm"
+        name="message"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field">
 
-    <!-- スパム対策（表示されない） -->
     <input type="hidden" name="form-name" value="message">
+
     <p hidden>
       <label>Don’t fill this out: <input name="bot-field"></label>
     </p>
 
-    <textarea name="text"
-      rows="4"
-      placeholder="ひとこと"
-      required></textarea>
+    <textarea name="text" rows="4" placeholder="ひとこと" required></textarea>
 
     <div class="actions">
       <button type="submit">send</button>
     </div>
   </form>
+
+  <!-- ありがとうモーダル -->
+  <div id="thanksModal" class="modal" hidden aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Thanks">
+      <p>ありがとう。</p>
+      <div class="actions">
+        <button type="button" class="btn" data-close>close</button>
+      </div>
+    </div>
+  </div>
 </section>
+
 
 
 </main>
@@ -68,6 +78,57 @@
 <script src="/header-main.js?v=1"></script>
 
 <script src="./log.js?v=1001"></script>
+<script>
+  <script>
+  const form = document.getElementById("messageForm");
+  const modal = document.getElementById("thanksModal");
+
+  function openModal() {
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && !modal.hidden) closeModal();
+  });
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(form);
+
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(fd).toString(),
+      });
+
+      if (!res.ok) throw new Error("submit failed");
+
+      // 送信成功：入力欄クリア→モーダル
+      form.reset();
+      openModal();
+
+    } catch (err) {
+      alert("送信に失敗しました。時間をおいて試してください。");
+      console.error(err);
+    }
+  });
+</script>
+
+</script>
 
 </body>
 </html>
@@ -132,6 +193,36 @@ textarea {
   background: var(--bg-soft);
   color: var(--text);
   resize: vertical;
+}
+
+.log-dialog::backdrop {
+  background: rgba(0,0,0,.45);
+}
+
+.modal[hidden] { display: none; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+}
+.modal__panel {
+  position: relative;
+  max-width: 420px;
+  margin: 24vh auto 0;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(20,24,32,.92);
+  backdrop-filter: blur(10px);
+}
+.modal__panel p {
+  margin: 0;
+  font-size: 16px;
 }
 
 
