@@ -38,21 +38,12 @@
 <section class="card">
   <h2>message</h2>
 
-  <!-- <form id="messageForm"
-      name="message"
-      method="POST"
-      action="/log/"
-      data-netlify="true"
-      netlify-honeypot="bot-field"> -->
-
   <form id="messageForm"
   name="message"
   method="POST"
   action="/"
   data-netlify="true"
   netlify-honeypot="bot-field">
-
-
 
   <input type="hidden" name="form-name" value="message">
 
@@ -61,7 +52,6 @@
   </p>
 
   <input type="text" name="sender" placeholder="name（任意）" autocomplete="nickname"/>
-  <br>
   <textarea name="text" rows="4" placeholder="ひとこと・感想など" required></textarea>
 
   <div class="actions">
@@ -270,6 +260,8 @@ textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
   font-size: 13px;
 }
+
+input[type="text"]{margin-bottom:20px;}
 
 .log-dialog::backdrop {
   background: rgba(0,0,0,.45);
