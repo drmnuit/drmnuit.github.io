@@ -59,6 +59,23 @@
   </div>
 </form>
 
+  <p>-------------------</p>
+
+  <form id="messageForm" name="message" method="POST" netlify>
+  <p>
+    <input type="text" name="name" placeholder="name（任意）">
+  </p>
+
+  <p>
+    <textarea name="message" placeholder="ひとこと・感想など" required></textarea>
+  </p>
+
+  <p>
+    <button type="submit">send</button>
+  </p>
+</form>
+
+
   <!-- ありがとうモーダル -->
   <div id="thanksModal" class="modal" hidden aria-hidden="true">
     <div class="modal__backdrop" data-close></div>
@@ -78,57 +95,7 @@
 <script src="/header-main.js?v=1"></script>
 <script src="./log.js?v=1001"></script>
 
-<!-- <script>
-  const form = document.getElementById("messageForm");
-  const modal = document.getElementById("thanksModal");
-
-  function openModal() {
-    modal.hidden = false;
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    modal.hidden = true;
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  modal?.addEventListener("click", (e) => {
-    if (e.target.matches("[data-close]")) closeModal();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal && !modal.hidden) closeModal();
-  });
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const fd = new FormData(form);
-    const url = form.getAttribute("action") || window.location.pathname;
-
-    try {
-      console.log("payload:", new URLSearchParams(new FormData(form)).toString());
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(fd).toString(),
-      });
-
-      if (!res.ok) throw new Error("submit failed");
-
-      form.reset();
-      openModal();
-    } catch (err) {
-      alert("送信に失敗しました。時間をおいて試してください。");
-      console.error(err);
-    }
-  });
-
-</script> -->
-
-  <script>
+  <!-- <script>
 (() => {
   const form = document.getElementById("messageForm");
   const modal = document.getElementById("thanksModal");
@@ -190,8 +157,29 @@
     }
   });
 })();
-</script>
+</script> -->
 
+  <script>
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(data).toString(),
+  })
+  .then(() => {
+    form.reset();
+    openModal();
+  })
+  .catch((error) => alert(error));
+};
+
+document.getElementById("messageForm")
+  .addEventListener("submit", handleSubmit);
+</script>
 
 
 </body>
