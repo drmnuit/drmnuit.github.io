@@ -38,7 +38,7 @@
 <section class="card">
   <h2>message</h2>
 
-  <form id="messageForm"
+  <!-- <form id="messageForm"
         name="message"
         method="POST"
         data-netlify="true"
@@ -49,18 +49,46 @@
     <p hidden>
       <label>Don’t fill this out: <input name="bot-field"></label>
     </p>
-
-    <!-- 任意の名前 -->
-    <input　type="text"　name="sender"　id="senderInput"
-  placeholder="name（任意）"　autocomplete="off"/>
-
+    
 
     <textarea name="text" rows="4" placeholder="感想など ひとこと" required></textarea>
 
     <div class="actions">
       <button type="submit">send</button>
     </div>
-  </form>
+  </form> -->
+
+  
+    <form id="messageForm"
+      name="message"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field">
+
+  <input type="hidden" name="form-name" value="message">
+
+  <p hidden>
+    <label>Don’t fill this out: <input name="bot-field"></label>
+  </p>
+
+  <!-- 任意の名前 -->
+  <input
+    type="text"
+    name="sender"
+    placeholder="name（任意）"
+    autocomplete="nickname"
+  />
+
+  <textarea
+    name="text"
+    rows="4"
+    placeholder="ひとこと"
+    required></textarea>
+
+  <div class="actions">
+    <button type="submit">send</button>
+  </div>
+</form>
 
   <!-- ありがとうモーダル -->
   <div id="thanksModal" class="modal" hidden aria-hidden="true">
@@ -73,8 +101,6 @@
     </div>
   </div>
 </section>
-
-
 
 </main>
 
