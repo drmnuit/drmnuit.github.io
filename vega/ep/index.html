@@ -20,12 +20,30 @@
     <section class="card" data-story>
       <div id="storyBody"></div>
     </section>
+  
+    <div class="cheer-box tally-embed tally-embed--dark">
+      <iframe
+        data-tally-src="https://tally.so/embed/1AdYEQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="72"
+        frameborder="0"
+        title="reactions-dark">
+      </iframe>
+      <div class="tally-shield"></div>
+    </div>
 
-<div class="cheer-box">
-  <iframe data-tally-src="https://tally.so/embed/1AdYEQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="72" frameborder="0" marginheight="0" marginwidth="0" title="reactions"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-  <div class="tally-shield"></div>
-</div>
+    <div class="cheer-box tally-embed tally-embed--light">
+      <iframe
+        data-tally-src="https://tally.so/embed/9q9AbE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="60"
+        frameborder="0"
+        title="reactions-light">
+      </iframe>
+      <div class="tally-shield"></div>
+    </div>
 
   </main>
 
@@ -56,8 +74,7 @@
       document.body.dataset.next = next ? `?ep=${next}` : "";
       document.body.dataset.ep   = cur.epId; // 既読管理用
       // Tally用（話数を保持）
-document.body.dataset.waveEp = ep; // "01"
-
+      document.body.dataset.waveEp = ep; // "01"
 
       // 既読保存
       const key = "readEpisodes";
@@ -117,7 +134,5 @@ iframe[src*="tally.so"] a[href*="tally.so"] {
   pointer-events: auto;
   background: transparent;
 }
-
-
 
 </style>
