@@ -1,4 +1,4 @@
-// novel1/header.js
+// /ep-nav.js
 (function () {
   let lastY = window.scrollY;
   let ticking = false;
@@ -10,20 +10,39 @@
   function show(nav) { nav.classList.remove("is-hidden"); }
   function hide(nav) { nav.classList.add("is-hidden"); }
 
+  // ★追加：prev/next の表示/無効化を反映
+  function applyPrevNext() {
+    const nav = getNav();
+    if (!nav) return;
+
+    const prevBtn = nav.querySelector('[data-action="prev"]');
+    const nextBtn = nav.querySelector('[data-action="next"]');
+
+    const prevUrl = document.body.dataset.prev || "";
+    const nextUrl = document.body.dataset.next || "";
+
+    if (prevBtn) {
+      prevBtn.style.display = prevUrl ? "" : "none";
+      prevBtn.classList.toggle("is-disabled", !prevUrl);
+    }
+    if (nextBtn) {
+      nextBtn.style.display = nextUrl ? "" : "none";
+      nextBtn.classList.toggle("is-disabled", !nextUrl);
+    }
+  }
+
   function onScroll() {
     const nav = getNav();
     if (!nav) return;
 
     const y = window.scrollY;
 
-    // ちょい上は常に見せる
     if (y < 40) {
       show(nav);
       lastY = y;
       return;
     }
 
-    // 下スクロールで隠す / 上スクロールで出す
     if (y > lastY) hide(nav);
     else show(nav);
 
@@ -39,7 +58,6 @@
     });
   }, { passive: true });
 
-  // ボタン挙動（prev/next/top）
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-action]");
     if (!btn) return;
@@ -51,7 +69,6 @@
       return;
     }
 
-    // 各ページで指定したURLに飛ばす
     const prevUrl = document.body.dataset.prev;
     const nextUrl = document.body.dataset.next;
 
@@ -59,13 +76,10 @@
     if (action === "next" && nextUrl) location.href = nextUrl;
   });
 
-  // prev/next が無い時はボタン無効化
-  function initPrevNextState() {
-    const prevBtn = document.querySelector('[data-action="prev"]');
-    const nextBtn = document.querySelector('[data-action="next"]');
-    if (prevBtn && !document.body.dataset.prev) prevBtn.classList.add("is-disabled");
-    if (nextBtn && !document.body.dataset.next) nextBtn.classList.add("is-disabled");
-  }
+  // ★追加：nav差し込み/データセット更新の「後」でも追従する
+  const mo = new MutationObserver(() => applyPrevNext());
+  mo.observe(document.body, { childList: true, subtree: true, attributes: true });
 
-  initPrevNextState();
+  // 初回も一応
+  applyPrevNext();
 })();
