@@ -67,17 +67,6 @@ document.body.dataset.waveEp = ep; // "01"
         localStorage.setItem(key, JSON.stringify(read));
       }
 
-      const prevBtn = document.querySelector('[data-action="prev"]');
-      const nextBtn = document.querySelector('[data-action="next"]');
-
-      if (!prev && prevBtn) {
-        prevBtn.style.display = "none";
-      }
-
-      if (!next && nextBtn) {
-        nextBtn.style.display = "none";
-      }
-
       // 見出し
       document.getElementById("epHeading").innerHTML =
         `${cur.file} <span class="sub-title">${cur.subtitle || ""}</span>`;
