@@ -1,6 +1,5 @@
-// header.js
 (function () {
-  const MOBILE_MAX = 768; // px
+  const MOBILE_MAX = 768;
   let lastScrollY = window.scrollY;
 
   function isMobile() {
@@ -12,7 +11,7 @@
       window.innerHeight + window.scrollY;
     const pageHeight =
       document.documentElement.scrollHeight;
-    return pageHeight - scrollBottom < 80; // 下から80px
+    return pageHeight - scrollBottom < 80;
   }
 
   window.addEventListener("scroll", () => {
@@ -27,18 +26,16 @@
 
     const currentY = window.scrollY;
 
-    // ページ最上部 or 最下部では表示
-    if (currentY < 60 || isNearBottom()) {
+    // 最上部では表示
+    if (currentY < 60) {
       header.classList.remove("is-hidden");
       lastScrollY = currentY;
       return;
     }
 
-    // 下スクロール → 隠す / 上スクロール → 出す
+    // 下スクロールしたら隠す（戻さない）
     if (currentY > lastScrollY) {
       header.classList.add("is-hidden");
-    } else {
-      header.classList.remove("is-hidden");
     }
 
     lastScrollY = currentY;

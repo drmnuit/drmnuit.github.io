@@ -5,14 +5,10 @@
   right: 0;
   bottom: 0;
   z-index: 9999;
-
   background: var(--bg);
   border-top: 1px solid var(--border);
-
   /* iPhoneの下の安全領域 */
   padding-bottom: env(safe-area-inset-bottom);
-
-  transition: transform 0.25s ease;
 }
 
 .ep-nav.is-hidden{
@@ -69,4 +65,8 @@
 main{
   margin: -30px auto 100px;
   max-width: 720px;
+}
+
+a, button, input[type="submit"], [role="button"] {
+  cursor: pointer !important;
 }

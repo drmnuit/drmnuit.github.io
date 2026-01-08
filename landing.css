@@ -144,3 +144,7 @@ body.landing {
     letter-spacing: 0.06em;
   }
 }
+
+a, button, input[type="submit"], [role="button"] {
+  cursor: pointer !important;
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>log | drmnuit</title>
+  <title>message | drmnuit</title>
    <link rel="icon" href="/favicon.png">
  <link rel="stylesheet" href="/style.css" />
  <script async src="https://tally.so/widgets/embed.js"></script>
@@ -12,14 +12,35 @@
 <body>
  <div id="siteHeader" data-include="/header-main.html"></div>
 
-  <main>
+  <main class="page-enter">
     <h1>message</h1>
 
-    <div class="form-wrap card">
-      
-  <iframe data-tally-src="https://tally.so/embed/A72ODl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" title="drmnuit message form"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};
-if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+<div class="card message-card">
+  <!-- dark 用 -->
+  <div class="tally-embed tally-embed--dark">
+    <iframe
+      data-tally-src="https://tally.so/embed/A72ODl?alignLeft=1&hideTitle=1&transparentBackground=1"
+      loading="lazy"
+      width="100%"
+      height="600"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="drmnuit message form (dark)"></iframe>
+  </div>
+
+  <!-- light 用（フォーム複製してID差し替え） -->
+  <div class="tally-embed tally-embed--light">
+    <iframe
+      data-tally-src="https://tally.so/embed/2Ea9RL?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="600"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="drmnuit message form (light)"></iframe>
+  </div>
 </div>
 
 </main>
@@ -33,3 +54,9 @@ if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')=
 
 </body>
 </html>
+
+<style>
+.message-card{
+  padding: 40px 30px 20px;
+}
+</style>

@@ -6,7 +6,6 @@
   --border: #e9e9e9;
   --hover: #f3f3f3;
   --card: #fff;
-  --input-border: #d9d9d9;
 
   --btn-bg: #111;
   --btn-text: #fff;
@@ -14,18 +13,17 @@
   --subbtn-bg: #f3f3f3;
   --subbtn-text: #111;
   --subbtn-hover: #e9e9e9;
+  --input-bg:#f3f3f3;
 }
 
 /* Dark（デフォルトにしたいなら、htmlに data-theme="dark" を付ける） */
 :root[data-theme="dark"]{
-  /* --bg: #0b1220; */
   --bg: #0e101d;
   --text: #e5e7eb;
-  --muted: #cbd5e1;
-  --border: rgba(195, 191, 236, 0.2);
+  --muted: rgb(156, 156, 156);
+  --border:#3c3d48;
   --hover: rgba(255,255,255,0.06);
   --card: rgba(255,255,255,0.03);
-  --input-border: rgba(195, 191, 236, 0.2);
 
   --btn-bg: #e5e6eb;
   --btn-text: #0b1220;
@@ -33,7 +31,17 @@
   --subbtn-bg: rgba(255, 255, 255, 0.08);
   --subbtn-text: #e5e7eb;
   --subbtn-hover: rgba(255,255,255,0.10);
+  --input-bg:#232430;
 }
+
+/* デフォルト（dark） */
+.tally-embed--light { display: none; }
+.tally-embed--dark  { display: block; }
+
+/* light のとき */
+[data-theme="light"] .tally-embed--dark  { display: none; }
+[data-theme="light"] .tally-embed--light { display: block; }
+
 
 
 * { box-sizing: border-box; }
@@ -49,6 +57,10 @@ body {
 h1{
     margin:10px;
     text-align: center;
+    text-shadow:
+  0 0 8px rgba(200, 210, 255, 0.35),
+  0 0 18px rgba(200, 210, 255, 0.18);
+  color:#ffffffb0;
 }
 
 h2{
@@ -87,18 +99,18 @@ h2{
   border-radius: 999px;
   padding: 10px;
 }
-/* .menu a:hover { background: var(--hover); } */
 
 .card {
-  border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 25px;
+  padding: 30px;
   background: var(--card);
-  margin-bottom: 20px;
+  margin-bottom: 60px;
+  border: none;
+  box-shadow: 0 0 10px rgba(123, 123, 123, 0.2);
 }
 
 p{
-  margin: 30px 0 30px;
+  margin: 0px;
   line-height: 2;
 }
 
@@ -113,10 +125,11 @@ label { display: block; font-size: 14px; margin-bottom: 8px; color: var(--muted)
 input[type="text"]{
   width: 100%;
   padding: 12px 12px;
-  border: 1px solid var(--input-border);
+  border: 1px solid var(--border);
   border-radius: 10px;
+  box-shadow:0 0 5px rgba(123, 123, 123, 0.2);
   font-size: 16px;
-  background: var(--bg);
+  background:var(--input-bg);
   color: var(--text);
 }
 
@@ -133,9 +146,16 @@ button, .btn {
   border-radius: 999px;
   padding: 10px 14px;
   font-size: 14px;
-  cursor: pointer;
   text-decoration: none;
+   box-shadow:0 0 5px rgba(123, 123, 123, 0.2);
 }
+
+.actions button {
+  width: 15%;
+  min-width: 120px;
+  max-width: 220px;
+}
+
 
 .btn {
   background: var(--subbtn-bg);
@@ -143,11 +163,19 @@ button, .btn {
   margin-right: 8px;
   font-weight:bold;
 }
-.btn:hover { background: var(--subbtn-hover); }
+.btn:hover { 
+  background: var(--subbtn-hover); 
+}
+
+button:hover{
+  opacity:0.7;
+}
 
 .episode-link.is-read {
   opacity:0.5;
 }
+
+
 
 
 .theme-toggle{
@@ -185,19 +213,18 @@ button, .btn {
   margin-left: 20px;
 }
 
-p a:hover, h3 a:hover, .small a:hover {
-  text-decoration: underline;
-}
-
 p a, h3 a, .small a {
   text-decoration: none;
   color: inherit;
 }
 
 .small,.small a {
-  margin-top: 10px;
   font-size: 13px;
   color: var(--muted);
+}
+
+.landing-wrap a:hover{
+  text-decoration: none;
 }
 
 header{
@@ -206,20 +233,39 @@ header{
   left: 0;
   right: 0;
   z-index: 9999;
-
   background: var(--bg);
-  border-bottom: 1px solid var(--border);
   transition: transform 0.25s ease;
+
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,.06); /* ダーク用 */
 }
 
-header.is-hidden{
+/* header.is-hidden{
   transform: translateY(-100%);
 }
+
+[data-theme="light"] header {
+  border-bottom: 1px solid rgba(0,0,0,.06);
+} */
+
+header {
+  background: rgba(0,0,0,.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+[data-theme="light"] header {
+  background: rgba(255,255,255,.55);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
 
 body{
   padding-top: 64px;
   cursor: default;
 }
+
 
 body {
   user-select: none;
@@ -337,14 +383,47 @@ p{
 }
 
 .footer-nav a {
-  color: inherit;
+  color: var(--muted);
   text-decoration: none;
 }
 
-.footer-nav a:hover {
-  opacity: 0.85;
+p a:hover, h3 a:hover, .small a:hover, .footer-nav a:hover, .menu a:hover, a:hover {
+  opacity: 0.7;
 }
 
 .sep {
   opacity: 0.3;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: fadeIn .4s ease-out both;
+}
+
+a,
+button,
+input,
+textarea,
+label {
+  cursor: pointer!important;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent; /* iOSの青ハイライト消したいなら */
+}
+
+button:active,
+a:active {
+  transform: translateY(1px);
+  opacity: .88;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
