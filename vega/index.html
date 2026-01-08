@@ -102,7 +102,7 @@ document.querySelectorAll(".episode-link").forEach(link => {
       document.body.dataset.next = next ? `?ep=${next}` : "";
       document.body.dataset.ep   = cur.epId; // 既読管理用
       // Tally用（話数を保持）
-document.body.dataset.waveEp = ep; // "01"
+// document.body.dataset.waveEp = ep; // "01"
 
 
       // 既読保存
@@ -143,35 +143,35 @@ document.body.dataset.waveEp = ep; // "01"
       })();
 
   // ===== Tally wavebox popup =====
-(() => {
-  const FORM_ID = "MeNQQY"; // ←あなたの匿名ひとことフォームID
-  const WIDTH = 260;
+// (() => {
+//   const FORM_ID = "MeNQQY"; // ←あなたの匿名ひとことフォームID
+//   const WIDTH = 260;
 
-  // クリックで開く（data-wave を付けた要素なら何でもOK）
-  document.addEventListener("click", (e) => {
-    const el = e.target.closest("[data-wave]");
-    if (!el) return;
-    e.preventDefault();
+//   // クリックで開く（data-wave を付けた要素なら何でもOK）
+//   document.addEventListener("click", (e) => {
+//     const el = e.target.closest("[data-wave]");
+//     if (!el) return;
+//     e.preventDefault();
 
-    // ep=01 を優先、なければ dataset
-    const ep = new URLSearchParams(location.search).get("ep")
-      || document.body?.dataset?.waveEp
-      || "";
+//     // ep=01 を優先、なければ dataset
+//     const ep = new URLSearchParams(location.search).get("ep")
+//       || document.body?.dataset?.waveEp
+//       || "";
 
-    // hidden field episode に渡す（Tally側に hidden: episode を作っておく）
-    const a = document.createElement("a");
-    a.href = "#";
-    a.setAttribute("data-tally-open", FORM_ID);
-    a.setAttribute("data-tally-layout", "modal");
-    a.setAttribute("data-tally-width", String(WIDTH));
-    a.setAttribute("data-tally-overlay", "1");
-    if (ep) a.setAttribute("data-tally-params", `episode=${encodeURIComponent(ep)}`);
+//     // hidden field episode に渡す（Tally側に hidden: episode を作っておく）
+//     const a = document.createElement("a");
+//     a.href = "#";
+//     a.setAttribute("data-tally-open", FORM_ID);
+//     a.setAttribute("data-tally-layout", "modal");
+//     a.setAttribute("data-tally-width", String(WIDTH));
+//     a.setAttribute("data-tally-overlay", "1");
+//     if (ep) a.setAttribute("data-tally-params", `episode=${encodeURIComponent(ep)}`);
 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  });
-})();
+//     document.body.appendChild(a);
+//     a.click();
+//     a.remove();
+//   });
+// })();
 
 
   </script>
