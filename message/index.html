@@ -83,3 +83,33 @@ if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')=
 
 </body>
 </html>
+
+<style>
+
+.msg-embed,
+.cheer-box {
+  position: relative;
+}
+
+/* Tally ロゴガード：送信後の下ズレ対策 */
+.tally-shield {
+  position: absolute;
+  right: 0;
+  bottom: -80px;          /* ← ここが肝。下に逃げた分を吸う */
+  width: min(55%, 260px);
+  height: 96px;           /* ロゴ＋余白まとめて覆う */
+  background: transparent;
+  pointer-events: auto;
+  z-index: 5;
+}
+
+@media (max-width: 480px) {
+  .tally-shield {
+    width: min(70%, 300px);
+    height: 120px;
+    bottom: -32px;
+  }
+}
+
+
+</style>
