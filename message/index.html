@@ -19,10 +19,10 @@
   <!-- dark 用 -->
   <div class="tally-embed tally-embed--dark">
     <iframe
-      data-tally-src="https://tally.so/embed/A72ODl?alignLeft=1&hideTitle=1&transparentBackground=1"
+      data-tally-src="https://tally.so/embed/A72ODl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
       loading="lazy"
       width="100%"
-      height="700"
+      height="550px"
       frameborder="0"
       marginheight="0"
       marginwidth="0"
@@ -35,7 +35,7 @@
       data-tally-src="https://tally.so/embed/2Ea9RL?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
       loading="lazy"
       width="100%"
-      height="700"
+      height="550px"
       frameborder="0"
       marginheight="0"
       marginwidth="0"
@@ -56,7 +56,11 @@
 </html>
 
 <style>
-.message-card{
-  padding: 40px 30px 20px;
+  .tally-frame{ min-height: 650px; }
+.tally-relax .tally-frame{ min-height: 520px; }
+
+html{
+  overflow-y: scroll;          
+  scrollbar-gutter: stable;   
 }
 </style>
