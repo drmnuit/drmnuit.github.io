@@ -24,8 +24,8 @@
         <input id="nameInput" type="text" placeholder="ナマエ" autocomplete="nickname" />
 
         <div class="actions">
-            <button id="saveBtn" type="button">save</button>
-            <button id="deleteBtn" type="button">delete</button>
+            <button id="saveBtn" type="button" disabled>save</button>
+            <button id="deleteBtn" type="button" disabled>delete</button>
         </div>
         </section>
 
@@ -61,14 +61,14 @@
   const savedName = localStorage.getItem("yume_name");
   nameInput.value = savedName ? savedName : "";
 
-  function updateButtons(){
-  const hasText = nameInput.value.trim().length > 0;
-  saveBtn.classList.toggle("is-disabled", !hasText);
-  deleteBtn.classList.toggle("is-disabled", !hasText);
-}
+  function updateButtons() {
+    const hasText = nameInput.value.trim().length > 0;
+    saveBtn.disabled = !hasText;
+    deleteBtn.disabled = !hasText;
+  }
 
-updateButtons();
-nameInput.addEventListener("input", updateButtons);
+  updateButtons();
+  nameInput.addEventListener("input", updateButtons);
 
   // 保存：入力した名前を保存＆入力欄にそのまま残す
   saveBtn.addEventListener("click", () => {
@@ -107,11 +107,3 @@ document.querySelectorAll(".episode-link").forEach(link => {
 
 </body>
 </html>
-
-<style>
-  .actions button.is-disabled{
-  opacity: .7;
-  pointer-events: none; /* クリック不可 */
-}
-
-</style>
