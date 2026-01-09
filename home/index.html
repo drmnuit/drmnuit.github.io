@@ -21,11 +21,15 @@
 </div>
 
         <label for="nameInput" class="visually-hidden">主人公の名前</label>
-        <input id="nameInput" type="text" placeholder="ナマエ" autocomplete="nickname" />
+        <input id="nameInput" type="text" placeholder="ナマエ" 
+         autocomplete="off"
+  autocapitalize="off"
+  autocorrect="off"
+  spellcheck="false" />
 
         <div class="actions">
-            <button id="saveBtn" type="button" disabled>save</button>
-            <button id="deleteBtn" type="button" disabled>delete</button>
+            <button id="saveBtn" type="button">save</button>
+            <button id="deleteBtn" type="button">delete</button>
         </div>
         </section>
 
@@ -60,15 +64,6 @@
   // すでに保存されてる名前があれば、入力欄に復元
   const savedName = localStorage.getItem("yume_name");
   nameInput.value = savedName ? savedName : "";
-
-  function updateButtons() {
-    const hasText = nameInput.value.trim().length > 0;
-    saveBtn.disabled = !hasText;
-    deleteBtn.disabled = !hasText;
-  }
-
-  updateButtons();
-  nameInput.addEventListener("input", updateButtons);
 
   // 保存：入力した名前を保存＆入力欄にそのまま残す
   saveBtn.addEventListener("click", () => {
@@ -107,3 +102,23 @@ document.querySelectorAll(".episode-link").forEach(link => {
 
 </body>
 </html>
+
+<style>
+  input,
+input:focus,
+textarea,
+textarea:focus {
+  background-color: var(--card); /* いつもの背景 */
+  outline: none;               /* 枠も消したいなら */
+}
+
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px var(--bg) inset;
+}
+
+
+</style>
