@@ -109,11 +109,6 @@ h2{
   box-shadow: 0 0 10px rgba(123, 123, 123, 0.2);
 }
 
-p{
-  margin: 0px;
-  line-height: 2;
-}
-
 main {
   max-width: 980px;
   margin: 0 auto;
@@ -156,7 +151,6 @@ button, .btn {
   max-width: 220px;
 }
 
-
 .btn {
   background: var(--subbtn-bg);
   color: var(--subbtn-text);
@@ -174,9 +168,6 @@ button:hover{
 .episode-link.is-read {
   opacity:0.5;
 }
-
-
-
 
 .theme-toggle{
   width: 40px;
@@ -291,7 +282,7 @@ body {
 
 .episode-item {
   display: flex;
-  align-items: baseline;   /* タイトルとテキストの高さを自然に */
+  align-items: baseline;   
   gap: 15px;
   padding: 5px 0 8px;
 }
@@ -305,7 +296,7 @@ body {
   margin: 0;
   font-size: 12px;
   color: var(--muted);
-  white-space: nowrap;     /* メタ情報は折り返さない */
+  white-space: nowrap;     
 }
 
 @media (max-width: 480px) {
@@ -339,7 +330,7 @@ body {
   display: block;
 }
 
-  .form-wrap {
+.form-wrap {
   width: 100%;
   max-width: 980px;
   margin: 0 auto;
@@ -350,12 +341,6 @@ body {
   height: 900px; /* 足りなければ増やす */
   border: none;
   border-radius: 16px;
-}
-
-p{
-   /* text-align:center;  */
-   margin:0;
-   padding: 30px 0 30px;
 }
 
 .site-footer {
@@ -427,8 +412,10 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+
 p{
-padding:-10px;
-margin:0;
+   margin:0;
+   padding: 30px 0 30px;
+  /*line-height: 2;*/
 }
 
