@@ -427,3 +427,7 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+.episode-text{
+padding:0;
+}
+
